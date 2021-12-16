@@ -1,0 +1,32 @@
+[
+	{
+		"type": "MISSING",
+		"key": "Buildings",
+		"loc": {
+			"start": {
+				"line": 102,
+				"column": 10
+			},
+			"end": {
+				"line": 102,
+				"column": 32
+			}
+		},
+		"file": "src/operations/outside.ts"
+	},
+	{
+		"type": "MISSING",
+		"key": "Buildings",
+		"loc": {
+			"start": {
+				"line": 68,
+				"column": 4
+			},
+			"end": {
+				"line": 68,
+				"column": 26
+			}
+		},
+		"file": "src/translate.ts"
+	}
+]
