@@ -70,8 +70,8 @@ export default class Events extends GameModule {
       return true;
     } else {
       this.engine.notify(`not enough ${cost}`)
+      return false;
     }
-    return false;
   }
 
   getCurrentSpaceEventsPool() {
@@ -144,7 +144,8 @@ export default class Events extends GameModule {
     await this.engine.dispatch(this.engine.actions.events.cleanEnemys())
 
     this.engine.dispatch(this.engine.actions.events.setM({
-      activeScene: sceneName
+      activeScene: sceneName,
+      loot: {}
     }));
 
     const scene = event?.scenes[sceneName];

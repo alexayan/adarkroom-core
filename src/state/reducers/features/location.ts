@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import numberValueModify from '../common/numberValueModify';
 
 const locationSlice = createSlice({
   name: 'location',
@@ -25,6 +26,7 @@ const locationSlice = createSlice({
     enablePath(state) {
       state.Path = true;
     },
+    ...numberValueModify
   },
 });
 

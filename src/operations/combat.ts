@@ -9,7 +9,11 @@ operationManager.add({
     name: translate('take'),
     isAvailable: (engine) => {
         const state = engine.getState();
-        return !_.isEmpty(state.events.loot) && state.events.won && state.engine.activeSpace === GameSpace.World;
+        const hasEnemys = state.events.enemys.length > 0;
+        if (hasEnemys) {
+            return !_.isEmpty(state.events.loot) && state.events.won && state.engine.activeSpace === GameSpace.World;
+        }
+        return !_.isEmpty(state.events.loot) && state.engine.activeSpace === GameSpace.World;
     },
     meta: {
         space: GameSpace.World,
@@ -53,6 +57,10 @@ operationManager.add({
     name: translate('take all'),
     isAvailable: (engine) => {
         const state = engine.getState();
+        const hasEnemys = state.events.enemys.length > 0;
+        if (hasEnemys) {
+            return !_.isEmpty(state.events.loot) && state.events.won && state.engine.activeSpace === GameSpace.World;
+        }
         return !_.isEmpty(state.events.loot) && state.events.won && state.engine.activeSpace === GameSpace.World;
     },
     meta: {
@@ -90,6 +98,10 @@ operationManager.add({
     name: translate('take everything'),
     isAvailable: (engine) => {
         const state = engine.getState();
+        const hasEnemys = state.events.enemys.length > 0;
+        if (hasEnemys) {
+            return !_.isEmpty(state.events.loot) && state.events.won && state.engine.activeSpace === GameSpace.World;
+        }
         return !_.isEmpty(state.events.loot) && state.events.won && state.engine.activeSpace === GameSpace.World;
     },
     meta: {
@@ -117,7 +129,15 @@ operationManager.add({
     name: translate('drop stuff'),
     isAvailable: (engine) => {
         const state = engine.getState();
-        return !_.isEmpty(state.game.world.outfit) && state.events.won && state.engine.activeSpace === GameSpace.World;
+        const hasEnemys = state.events.enemys.length > 0;
+        if (hasEnemys) {
+            return !_.isEmpty(state.game.world.outfit) && state.events.won && state.engine.activeSpace === GameSpace.World;
+        }
+        const scene = engine.events.getActiveScene();
+        if (scene && scene.loot) {
+            return !_.isEmpty(state.game.world.outfit) && state.engine.activeSpace === GameSpace.World;
+        }
+        return false;
     },
     meta: {
         space: GameSpace.World
