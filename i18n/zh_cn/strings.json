@@ -798,5 +798,7 @@
     "{worker} income": "{worker}收益",
     "{name} {flag}{count} per {delay}s": "{name}   {flag}{count} 每{delay}秒",
     "perks": "技能",
-    "Buildings": "建筑物"
+    "Buildings": "建筑物",
+    "view {place}": "查看{place}",
+    "bought {item}": "购买了{item}"
 }

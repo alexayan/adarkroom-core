@@ -32,7 +32,6 @@ operationManager.add({
                 })
             }
         }
-        
         return perks;
     },
     meta: {

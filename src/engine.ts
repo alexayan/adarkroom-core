@@ -194,6 +194,7 @@ class Engine {
   }
 
   async travelToSubSpace(space: string) {
+    /* i18n-extract visit {place} */
     await this.store?.dispatch(this.actions.engine.changeSubSpace(space));
   }
 

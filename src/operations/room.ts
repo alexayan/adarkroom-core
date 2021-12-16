@@ -129,6 +129,7 @@ operationManager.add({
                 })
             }
         }
+        /* i18n-extract view {place} */
         return stores;
     },
     meta: {
@@ -220,6 +221,8 @@ Object.keys(TradeCategory).forEach((thing) => {
                     [thing]: 1,
                 })
             );
+            /* i18n-extract bought {item} */
+            engine.notify(`bought ${thing}`, GameSpace.Room);
             return true;
         }
     })

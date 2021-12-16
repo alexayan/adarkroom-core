@@ -1,0 +1,51 @@
+import Engine from './engine';
+import GameModule from './module';
+import './operations/world';
+export default class World extends GameModule {
+    constructor(engine: Engine);
+    newMask(): any[];
+    lightMap(x: number, y: number, mask: boolean[][]): boolean[][];
+    uncoverMap(x: number, y: number, r: number, mask: boolean[][]): void;
+    getTerrain(): any;
+    markVisited(x: number, y: number): void;
+    clearDungeon(): void;
+    findClosestRoad(startPos: number[]): number[];
+    drawRoad(): void;
+    getMaxHealth(): number;
+    applyMap(): Promise<void>;
+    testMap(): Promise<void>;
+    onArrival(): void;
+    setHp(hp: number): void;
+    setWater(w: number): void;
+    moveSouth(): void;
+    moveWest(): void;
+    moveEast(): void;
+    moveNorth(): void;
+    move(direction: number[]): Promise<void>;
+    useOutpost(): void;
+    getMaxWater(): number;
+    generateMap(): any[];
+    chooseTile(x: number, y: number, map: string[][]): string;
+    placeLandmark(minRadius: number, maxRadius: number, landmark: string, map: string[][]): number[];
+    isTerrain(tile: string): boolean;
+    mapSearch(target: string, map: any[][], required: number): {
+        x: number;
+        y: number;
+    }[] | null;
+    compassDir(pos: {
+        x: number;
+        y: number;
+    }): string;
+    goHome(): Promise<void>;
+    getFreeSpace(): number;
+    die(): void;
+    checkFight(): void;
+    narrateMove(oldTile: string, newTile: string): void;
+    getDistance(from?: number[], to?: number[]): number;
+    outpostUsed(x?: number, y?: number): boolean;
+    useSupplies(): Promise<boolean>;
+    meatHeal(): number;
+    medsHeal(): number;
+    checkDanger(): boolean;
+    doSpace(): Promise<void>;
+}
