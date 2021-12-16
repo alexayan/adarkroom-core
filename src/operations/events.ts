@@ -8,6 +8,12 @@ operationManager.add({
     name: translate('choice'),
     isAvailable: (engine) => {
         const scene = engine.events.getActiveScene();
+        if (scene?.combat) {
+            const state = engine.getState();
+            if (!state.events.won) {
+                return false;
+            }
+        }
         return scene && scene.buttons;
     },
     help: (engine) => {

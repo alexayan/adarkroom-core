@@ -5,10 +5,11 @@
     "typings": "dist/index.d.ts",
     "files": [
         "dist",
-        "src"
+        "src",
+        "i18n"
     ],
     "engines": {
-        "node": ">=10"
+        "node": ">=12"
     },
     "scripts": {
         "start": "tsdx watch --format cjs,esm,umd",
