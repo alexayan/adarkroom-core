@@ -209,7 +209,7 @@ Object.keys(TradeCategory).forEach((thing) => {
                     engine.notify(`not enough ${k}, need ${cost[k]}, stock ${have}`, GameSpace.Room);
                     return false;
                 } else {
-                    storeMod[k] = have - cost[k];
+                    storeMod[k] = -cost[k];
                 }
             }
             await await engine.dispatch(engine.actions.stores.addM(storeMod));
@@ -292,10 +292,10 @@ Object.keys(CraftableCategory).forEach((thing) => {
                     engine.notify(`not enough ${k}, need ${cost[k]}, stock ${have}`, GameSpace.Room);
                     return false;
                 } else {
-                    storeMod[k as StoreCategory] = have - cost[k];
+                    storeMod[k as StoreCategory] = -cost[k];
                 }
             }
-            await engine.setToStore(storeMod);
+            await engine.addToStore(storeMod);
 
             if (craftable.craft.buildMsg) {
                 engine.notify(craftable.craft?.buildMsg, GameSpace.Room);

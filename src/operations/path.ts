@@ -23,11 +23,12 @@ operationManager.add({
     },
     exec: async (engine) => {
         const state = engine.getState();
-        const perks = [] as {name: string, desc: string}[];
+        const perks = [] as {name: string, desc: string, id: string}[];
         for (let perk in state.character.perks) {
             if (state.character.perks[perk as PerkCategory]) {
                 perks.push({
-                    name: perk,
+                    id: perk,
+                    name: Perks[perk as PerkCategory].name,
                     desc: Perks[perk as PerkCategory].desc
                 })
             }

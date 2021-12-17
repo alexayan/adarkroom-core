@@ -5,7 +5,6 @@ module.exports = {
     config.output.globals = {
       'lodash-es': '_',
       '@reduxjs/toolkit': 'toolkit',
-      i18next: 'i18next',
       'redux-logger': 'logger'
     };
 

@@ -757,6 +757,7 @@ export default {
     VERSION: 1.3,
     MAX_STORE: 99999999999999,
     SAVE_DISPLAY: 30 * 1000,
+    MAX_MESSAGE_COUNT: 200
   },
   World: {
     name: 'World',

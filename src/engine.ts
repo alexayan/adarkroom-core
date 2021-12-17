@@ -246,7 +246,6 @@ class Engine {
   _incomeTimeout: any = null;
 
   collectIncome() {
-    let changed = false;
     const incomeStores = [];
     const state = _.cloneDeep(this.getState());
     if (state.engine.activeSpace !== GameSpace.Space) {
@@ -266,41 +265,24 @@ class Engine {
             this.addStolen(income.stores);
           }
 
-          const cost = income.stores;
-          let ok = true;
-          if (source !== 'thieves') {
-            for (var k in cost) {
-              let have = state.stores[k as StoreCategory] || 0;
-              if (have + cost[k as StoreCategory] < 0) {
-                ok = false;
-                break;
-              }
-            }
-          }
-
-          if (ok) {
-            incomeStores.push(income.stores);
-          }
-          changed = true;
-          if (typeof income.delay == 'number') {
+          incomeStores.push(income.stores)
+          if (typeof income.delay === 'number') {
             income.timeLeft = income.delay;
           }
         }
       }
     }
-    if (changed) {
+    if (incomeStores.length > 0) {
       const addStores: any = {};
       incomeStores.forEach(store => {
         Object.keys(store).forEach(key => {
-          const addCount = addStores[key] || 0 + store[key as StoreCategory] || 0;
-          if (addCount) {
-            addStores[key] = addStores[key] || 0 + store[key as StoreCategory] || 0;
-          }
+          addStores[key] = (addStores[key] || 0) + (store[key as StoreCategory] || 0);
         });
       });
       this.dispatch(this.actions.stores.addM(addStores));
     }
     this.dispatch(this.actions.income.setM(state.income));
+    clearTimeout(this._incomeTimeout);
     this._incomeTimeout = this.setTimeout(this.collectIncome.bind(this), 1000);
   }
 

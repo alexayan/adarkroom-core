@@ -1,6 +1,7 @@
 import { GameSpace } from '../../type';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { GameState } from '../index';
+import config from '../../config';
 
 export type Notification = {
   text: string;
@@ -46,7 +47,7 @@ const storesSlice = createSlice({
         message._module = message.module;
         message.module = 'global';
       });
-      state.notifyQueue['global'] = [...state.notifyQueue['global'], ...queue];
+      state.notifyQueue['global'] = [...state.notifyQueue['global'], ...queue].slice(-config.Engine.MAX_MESSAGE_COUNT);
     },
   },
   extraReducers: builder => {
