@@ -274,12 +274,19 @@ class Engine {
     }
     if (incomeStores.length > 0) {
       const addStores: any = {};
+      let changed = false;
       incomeStores.forEach(store => {
         Object.keys(store).forEach(key => {
-          addStores[key] = (addStores[key] || 0) + (store[key as StoreCategory] || 0);
+          const count = (addStores[key] || 0) + (store[key as StoreCategory] || 0);
+          if (count !== 0) {
+            addStores[key] = count;
+            changed = true;
+          }
         });
       });
-      this.dispatch(this.actions.stores.addM(addStores));
+      if (changed) {
+        this.dispatch(this.actions.stores.addM(addStores));
+      }
     }
     this.dispatch(this.actions.income.setM(state.income));
     clearTimeout(this._incomeTimeout);
