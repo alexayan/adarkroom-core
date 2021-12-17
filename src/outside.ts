@@ -37,16 +37,17 @@ export default class Outside extends GameModule {
     }
   }
 
-  increaseWorker(worker: WorkerType, count: number) {
+  async increaseWorker(worker: WorkerType, count: number) {
     const gatherCount = this.getNumGatherers();
     if (gatherCount > 0) {
       const increaseAmt = Math.min(gatherCount, count);
       logger('increasing ' + worker + ' by ' + increaseAmt);
-      this.engine.dispatch(
+      await this.engine.dispatch(
         this.engine.actions.game.workers.addM({
           [worker]: increaseAmt,
         })
       );
+      this.updateVillageIncome();
     }
   }
 
@@ -69,17 +70,18 @@ export default class Outside extends GameModule {
     return title;
 	}
 
-  decreaseWorker(worker: WorkerType, count: number) {
+  async decreaseWorker(worker: WorkerType, count: number) {
     const state = this.engine.getState();
     const existCount = state.game.workers[worker] || 0;
     if (existCount > 0) {
       const decreaseAmt = Math.min(existCount, count);
       logger('decreasing ' + worker + ' by ' + decreaseAmt);
-      this.engine.dispatch(
+      await this.engine.dispatch(
         this.engine.actions.game.workers.addM({
           [worker]: decreaseAmt * -1,
         })
       );
+      this.updateVillageIncome();
     }
   }
 
