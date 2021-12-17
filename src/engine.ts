@@ -169,7 +169,17 @@ class Engine {
 
   continueGame() {
     this.paused = false;
-    this.startGame(this.store?.getState())
+    this.events = new Events(this);
+    this.spaces = {
+      [GameSpace.World]: new World(this),
+      [GameSpace.Room]: new Room(this),
+      [GameSpace.Outside]: new Outside(this),
+      [GameSpace.Path]: new Path(this),
+      [GameSpace.Ship]: new Ship(this),
+      [GameSpace.Space]: new Space(this),
+    };
+    this.prestige = new Prestige(this);
+    this._incomeTimeout = this.setTimeout(this.collectIncome.bind(this), 1000);
   }
 
   saveGame() {}
@@ -207,6 +217,9 @@ class Engine {
   }
 
   setTimeout(callback: () => any, timeout: number, skipDouble?: boolean) {
+    if (this.paused) {
+      return;
+    }
     if (this.options.doubleTime && !skipDouble) {
       logger('Double time, cutting timeout in half');
       timeout /= 2;
@@ -216,6 +229,9 @@ class Engine {
   }
 
   setInterval(callback: () => any, interval: number, skipDouble?: boolean) {
+    if (this.paused) {
+      return;
+    }
     if (this.options.doubleTime && !skipDouble) {
       logger('Double time, cutting timeout in half');
       interval /= 2;
