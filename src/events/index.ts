@@ -372,7 +372,7 @@ export default class Events extends GameModule {
       );
     }, 500);
     this.engine.setTimeout(async () => {
-      clearInterval(interval);
+      interval && clearInterval(interval);
       await this.engine.store?.dispatch(
         this.engine.actions.delay.setM({
           [stateName]: undefined,
