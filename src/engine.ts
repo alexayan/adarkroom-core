@@ -275,15 +275,38 @@ class Engine {
     if (incomeStores.length > 0) {
       const addStores: any = {};
       let changed = false;
-      incomeStores.forEach(store => {
+      for (let i = 0, len = incomeStores.length; i < len; i++) {
+        const store = incomeStores[i];
+        let skip = false;
+        const decrease = [] as any[];
+        const increase = [] as any[]
         Object.keys(store).forEach(key => {
-          const count = (addStores[key] || 0) + (store[key as StoreCategory] || 0);
-          if (count !== 0) {
-            addStores[key] = count;
-            changed = true;
+          if (store[key as StoreCategory] < 0) {
+            decrease.push({
+              key,
+              count: store[key as StoreCategory]
+            })
+          } else {
+            increase.push({
+              key,
+              count: store[key as StoreCategory]
+            })
           }
         });
-      });
+        decrease.forEach((item) => {
+          const old = state.stores[item.key as StoreCategory] || 0;
+          if (old + item.count < 0) {
+            skip = true;
+          }
+        })
+        if (!skip) {
+          changed = true;
+          ([] as any).concat(increase, decrease).forEach((item:any) => {
+            addStores[item.key] = (addStores[item.key] || 0) + item.count;
+            state.stores[item.key as StoreCategory] = (state.stores[item.key as StoreCategory] || 0) + item.count;
+          })
+        }
+      }
       if (changed) {
         this.dispatch(this.actions.stores.addM(addStores));
       }

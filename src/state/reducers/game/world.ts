@@ -43,6 +43,9 @@ const slice = createSlice({
     },
     setMap(state, action: PayloadAction<{ pos: number[]; value: any }>) {
       const { pos, value } = action.payload;
+      if (pos[0] === config.World.VILLAGE_POS[0] && pos[1] === config.World.VILLAGE_POS[1]) {
+        return;
+      }
       state.map[pos[0]][pos[1]] = value;
     },
   },
