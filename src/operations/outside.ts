@@ -10,7 +10,7 @@ operationManager.add({
     name: translate('check traps'),
     isAvailable: (engine) => {
         const state = engine.getState();
-        return state.engine.activeSpace === GameSpace.Outside;
+        return state.engine.activeSpace === GameSpace.Outside && !!state.game.buildings.trap;
     },
     cooldown: () => {
         return config.Outside.TRAPS_DELAY

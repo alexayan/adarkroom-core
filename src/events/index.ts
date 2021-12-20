@@ -61,7 +61,7 @@ export default class Events extends GameModule {
     const state = this.engine.getState();
     if (!!state.game.world.outfit[cost]) {
       const changed = {
-        [`outfit.${cost}`]: (state.path.outfit[cost] || 0) - 1
+        [`outfit.${cost}`]: (state.game.world.outfit[cost] || 0) - 1
       } as any;
       let hp = state.game.world.health + heal;
 			hp = Math.min(this.engine.spaces.World.getMaxHealth(), hp);
