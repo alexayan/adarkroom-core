@@ -308,6 +308,11 @@ class Engine {
         }
       }
       if (changed) {
+        for (let key in addStores) {
+          if (addStores[key] === 0) {
+            delete addStores[key]
+          }
+        }
         this.dispatch(this.actions.stores.addM(addStores));
       }
     }
