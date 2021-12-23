@@ -57,7 +57,7 @@ operationManager.add({
         const state = engine.getState();
         const outfit = state.path.outfit;
         const addStores = {} as any;
-        for (var k in state) {
+        for (var k in outfit) {
             addStores[k] = -1 * (outfit[k as StoreCategory] || 0);
         }
         await engine.dispatch(engine.actions.stores.addM(addStores));
